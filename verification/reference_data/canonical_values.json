@@ -1,0 +1,93 @@
+{
+  "_metadata": {
+    "description": "Canonical reference values for Genesis PROV 6 Solid-State Battery verification",
+    "classification": "NON-CONFIDENTIAL",
+    "source": "Extracted from PROV_6_SOLID_STATE/CANONICAL_VALUES.json (single source of truth)",
+    "last_updated": "2026-02-18"
+  },
+  "dendrite_suppression": {
+    "biharmonic_factor": 7.57,
+    "biharmonic_factor_unit": "dimensionless (ratio)",
+    "worst_case_plasticity": 5.30,
+    "tolerance_standard_glass_10um": 4.17,
+    "tolerance_premium_glass_5um": 5.45,
+    "monroe_newman_ratio": 8.9,
+    "monroe_newman_criterion": 2.0,
+    "stress_reduction_factor": 2.0,
+    "control_peak_stress_MPa": 1576.9,
+    "genesis_peak_stress_MPa": 780.1
+  },
+  "ionic_conductivity": {
+    "corrected_mS_cm": 0.112,
+    "corrected_range_mS_cm": [0.1, 0.12],
+    "corrected_uncertainty_pct": 3.7,
+    "corrected_R_squared": 0.999073,
+    "optimal_window_ps": [1524, 4571],
+    "optimal_D_m2_s": 3.803e-14,
+    "legacy_mS_cm": 0.477,
+    "legacy_D_m2_s": 1.618e-13,
+    "legacy_note": "SUPERSEDED -- artifact of fitting beyond trajectory endpoint"
+  },
+  "tortuosity": {
+    "value": 1.18,
+    "std": 0.042,
+    "min": 1.13,
+    "max": 1.28,
+    "porosity_pct": 30.6,
+    "connectivity_pct": 100,
+    "resolution": "120^3",
+    "solver": "MCP_Geometric shortest path"
+  },
+  "quantum_sieve": {
+    "pore_diameter_nm": 0.7,
+    "Li_barrier_kJ_mol": 7.1,
+    "K_barrier_kJ_mol": 7.7,
+    "Na_barrier_kJ_mol": 7.4,
+    "Na_method": "calibrated Born model (GROMACS PMF returned NaN)",
+    "mechanism": "steric exclusion of solvated species; bare-ion selectivity is weak (~8%)"
+  },
+  "smart_fuse": {
+    "version": "V3 + ALD coating",
+    "tests_passed": "10/10",
+    "post_rupture_conductivity_mS_cm": 3.05,
+    "best_config": "ALD + SEBS, radius 10-15 um, thickness 50-100 nm",
+    "dendrite_tip_stress_MPa": 500,
+    "shock_stress_MPa": 0.03,
+    "humidity_limit_RH_pct": 60,
+    "temperature_range_C": [-40, 85]
+  },
+  "bulk_modulus": {
+    "effective_GPa": 6.7,
+    "porosity_pct": 30.6
+  },
+  "cycle_life": {
+    "retention_100_cycles_pct": 75.6,
+    "retention_500_cycles_pct": 73.5,
+    "retention_1000_cycles_pct": 71.9,
+    "model": "P2D (Newman/DFN, Butler-Volmer kinetics)",
+    "sei_rate_parameter": 0.5,
+    "caveat": "SEI growth rate is assumed, not derived from first principles. Uses legacy conductivity (0.477 mS/cm); corrected value would give lower retention."
+  },
+  "thermal_safety": {
+    "genesis_max_T_C": 689,
+    "liquid_max_T_C": 324,
+    "genesis_combustion": false,
+    "liquid_combustion": true
+  },
+  "external_pressure": {
+    "max_MPa": 0.5,
+    "note": "Sufficient for interfacial contact only; below LLZO grain boundary K_IC"
+  },
+  "gyroid_properties": {
+    "space_group": "Ia-3d",
+    "level_set_parameter": 0.6,
+    "porosity_pct": 30.6,
+    "tortuosity": 1.18,
+    "connectivity_pct": 100
+  },
+  "patent": {
+    "total_claims": 96,
+    "families": 15,
+    "filing_type": "Provisional"
+  }
+}

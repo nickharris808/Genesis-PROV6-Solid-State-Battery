@@ -1,0 +1,139 @@
+{
+  "_metadata": {
+    "description": "Key computational results for Genesis PROV 6 Solid-State Battery",
+    "classification": "NON-CONFIDENTIAL",
+    "evidence_type": "computational (no experimental data)",
+    "trl": 3,
+    "last_updated": "2026-02-18"
+  },
+  "pillar_1_stiffness_trap": {
+    "description": "Gyroid scaffold mechanically suppresses dendrite penetration via biharmonic plate stiffness",
+    "results": {
+      "biharmonic_suppression_factor": {
+        "value": 7.57,
+        "unit": "dimensionless ratio (baseline deflection / genesis deflection)",
+        "baseline_deflection_um": 31334.63,
+        "genesis_deflection_um": 4137.84,
+        "method": "Biharmonic plate solver, clamped boundary conditions"
+      },
+      "monroe_newman_ratio": {
+        "value": 8.9,
+        "unit": "dimensionless (G_eff / G_Li)",
+        "criterion_minimum": 2.0,
+        "margin": "4.45x above minimum criterion"
+      },
+      "sensitivity_analysis": {
+        "worst_case_plasticity": 5.30,
+        "with_10um_glass_tolerance": 4.17,
+        "with_5um_premium_glass": 5.45,
+        "all_cases_above_criterion": true
+      },
+      "stress_reduction": {
+        "control_peak_MPa": 1576.9,
+        "genesis_peak_MPa": 780.1,
+        "factor": 2.0
+      }
+    },
+    "verification_status": "VERIFIED (biharmonic solver confirmed 2026-02-13)"
+  },
+  "pillar_2_quantum_sieve": {
+    "description": "Sub-nanometer gyroid pores exploit Born solvation energy for ion selectivity",
+    "results": {
+      "pore_diameter_nm": 0.7,
+      "Li_barrier_kJ_mol": {
+        "value": 7.1,
+        "method": "GROMACS PMF umbrella sampling"
+      },
+      "K_barrier_kJ_mol": {
+        "value": 7.7,
+        "method": "GROMACS PMF umbrella sampling"
+      },
+      "Na_barrier_kJ_mol": {
+        "value": 7.4,
+        "method": "Calibrated Born model (GROMACS PMF returned NaN)"
+      },
+      "solvated_species_selectivity": ">1e6:1 (steric exclusion)",
+      "bare_ion_selectivity_Li_vs_K": "~8% (weak)"
+    },
+    "verification_status": "VERIFIED (Na+ NaN fixed via calibrated Born model)"
+  },
+  "pillar_3_tensegrity": {
+    "description": "Gyroid geometry provides bulk modulus through structural topology rather than material density",
+    "results": {
+      "effective_bulk_modulus_GPa": 6.7,
+      "porosity_pct": 30.6,
+      "tortuosity": {
+        "value": 1.18,
+        "std": 0.042,
+        "comparison_random_porous": "3-5"
+      },
+      "pore_connectivity_pct": 100
+    },
+    "verification_status": "VERIFIED (tortuosity consistent across resolutions)"
+  },
+  "pillar_4_smart_fuse": {
+    "description": "Rupture-based safety fuse converts hard shorts to soft shorts, preventing thermal runaway",
+    "results": {
+      "validation_version": "V3 + ALD Al2O3 coating",
+      "tests_passed": "10/10",
+      "post_rupture_conductivity_mS_cm": 3.05,
+      "selectivity": "Dendrite tip stress (500 MPa) >> shock stress (0.03 MPa at 50g)",
+      "environmental_stability": {
+        "humidity": "Stable to 60% RH with ALD",
+        "temperature": "-40 C to 85 C operational range"
+      },
+      "prior_version_note": "V1 failed 5/6 tests; ALD coating was the critical fix"
+    },
+    "verification_status": "VERIFIED (V3+ALD passes 10/10 computational tests)"
+  },
+  "ionic_conductivity": {
+    "description": "Lithium ion conductivity in gyroid LLZO from GROMACS MD + Nernst-Einstein",
+    "corrected_result": {
+      "value_mS_cm": 0.112,
+      "D_m2_s": 3.803e-14,
+      "R_squared": 0.999073,
+      "uncertainty_pct": 3.7,
+      "fitting_window_ps": [1524, 4571],
+      "method": "Optimal MSD fitting window auto-detection"
+    },
+    "legacy_result": {
+      "value_mS_cm": 0.477,
+      "D_m2_s": 1.618e-13,
+      "R_squared": 0.577,
+      "uncertainty_pct": 185,
+      "status": "SUPERSEDED -- fitting window extended beyond trajectory data"
+    },
+    "literature_comparison": {
+      "Thompson_2017_grain_boundary_mS_cm": 0.1,
+      "published_cubic_LLZO_range_mS_cm": [0.1, 1.0],
+      "status": "WITHIN RANGE (grain-boundary-limited regime)"
+    },
+    "gromacs_parameters": {
+      "trajectory_length_ps": 15236,
+      "box_nm3": 9.4193,
+      "n_li_ions": 448,
+      "supercell": "2x2x2",
+      "temperature_K": 300
+    }
+  },
+  "cycle_life": {
+    "description": "Capacity retention from P2D electrochemical model with SEI growth",
+    "results": {
+      "retention_100_cycles_pct": 75.6,
+      "retention_500_cycles_pct": 73.5,
+      "retention_1000_cycles_pct": 71.9
+    },
+    "model": "P2D (Newman/DFN framework, Butler-Volmer kinetics)",
+    "caveat": "SEI growth rate parameter is assumed. Uses legacy conductivity value (optimistic)."
+  },
+  "thermal_safety": {
+    "description": "Thermal runaway comparison between Genesis SSB and liquid electrolyte",
+    "results": {
+      "genesis_max_temperature_C": 689,
+      "genesis_combustion": false,
+      "liquid_max_temperature_C": 324,
+      "liquid_combustion": true,
+      "key_insight": "No flammable electrolyte eliminates primary combustion pathway"
+    }
+  }
+}

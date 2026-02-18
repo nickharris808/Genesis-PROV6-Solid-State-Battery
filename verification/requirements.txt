@@ -1,0 +1,14 @@
+# Genesis PROV 6: Solid-State Battery -- Verification Dependencies
+#
+# The verify_claims.py script requires only the Python standard library
+# (json, math, os, sys). No external packages are needed.
+#
+# The packages below are listed for full reproduction of the underlying
+# computational results (see docs/REPRODUCTION_GUIDE.md).
+
+# --- Verification script (verify_claims.py) ---
+# No external dependencies required (stdlib only)
+
+# --- Full reproduction (optional) ---
+numpy>=1.24
+scipy>=1.10
