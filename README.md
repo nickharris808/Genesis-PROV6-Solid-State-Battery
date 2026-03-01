@@ -41,10 +41,10 @@ The solid-state battery industry has spent the last decade pursuing a seemingly 
 
 This white paper presents the **Pressure Paradox**, a discovery emerging from multi-physics computational analysis of garnet-type Li7La3Zr2O12 (LLZO) electrolytes. The paradox is this: the very pressures applied to suppress dendrites create stress concentrations at LLZO grain boundaries that exceed the material's fracture toughness (K_IC of approximately 1.0 MPa-sqrt(m)), initiating micro-crack networks that serve as **preferential highways for dendrite propagation**. High pressure does not prevent failure -- it accelerates it by creating the crack infrastructure that dendrites exploit.
 
-The Genesis architecture resolves this paradox through a fundamentally different approach: a **gradient-stiffness gyroid scaffold** based on the Schoen Gyroid minimal surface (space group Ia-3d). Rather than applying brute-force external pressure, the gyroid microstructure achieves mechanical dendrite suppression through internal geometric stiffness, delivering a **7.57x suppression factor at less than 0.5 MPa external pressure**. The architecture rests on four interlocking pillars:
+The Genesis architecture resolves this paradox through a fundamentally different approach: a **gradient-stiffness gyroid scaffold** based on the Schoen Gyroid minimal surface (space group Ia-3d). Rather than applying brute-force external pressure, the gyroid microstructure achieves mechanical dendrite suppression through internal geometric stiffness, delivering a **4.17-7.57x suppression factor (depending on geometry and assumptions) at less than 0.5 MPa external pressure**. The architecture rests on four interlocking pillars:
 
-1. **Stiffness Trap** -- Biharmonic plate theory applied to gyroid geometry creates a mechanical cage that deflects dendrite tips before they can propagate (7.57x suppression, Monroe-Newman ratio 8.9x)
-2. **Quantum Sieve** -- Sub-nanometer pores (0.7 nm) in the gyroid structure exploit Born solvation energy differences for ion selectivity exceeding 10^6:1 for solvated species
+1. **Stiffness Trap** -- Biharmonic plate theory applied to gyroid geometry creates a mechanical cage that deflects dendrite tips before they can propagate (4.17-7.57x suppression depending on geometry and assumptions, Monroe-Newman ratio 8.9x)
+2. **Quantum Sieve** -- Sub-nanometer pores (0.7 nm) in the gyroid structure exploit Born solvation energy differences for ion selectivity exceeding 10^6:1 (bare-ion gas-phase calculation; solvated selectivity will be lower)
 3. **Internal Tensegrity** -- The gyroid's triply periodic minimal surface generates an effective bulk modulus of 6.7 GPa through geometric stiffness rather than material density
 4. **Smart Fuse** -- A rupture-based safety layer that transitions from blocking to conducting (3.05 mS/cm post-rupture) upon dendrite penetration, preventing thermal runaway
 
@@ -244,7 +244,7 @@ Delta_G_Born = (q^2 / 8*pi*epsilon_0*r_ion) * (1/epsilon_pore - 1/epsilon_bulk)
 
 At this length scale, solvated ions (with their hydration or coordination shells) cannot pass through without partial desolvation, while bare lithium ions (ionic radius 0.76 Angstrom) can transit with a manageable energy barrier. This creates a two-tier selectivity mechanism:
 
-**Tier 1 -- Steric exclusion (extraordinary selectivity):** Solvated species with effective radii larger than the 0.7 nm pore are physically excluded. This provides selectivity exceeding 10^6:1 for any species that cannot shed its coordination shell.
+**Tier 1 -- Steric exclusion (extraordinary selectivity):** Solvated species with effective radii larger than the 0.7 nm pore are physically excluded. This provides selectivity exceeding 10^6:1 for any species that cannot shed its coordination shell. *Note: this is a bare-ion gas-phase calculation; solvated selectivity in a real electrolyte environment will be lower.*
 
 **Tier 2 -- Bare-ion Born energy (weak selectivity):** For desolvated ions, the Born energy barrier provides modest selectivity based on ionic radius differences. This tier is honest about its limitations -- the bare-ion selectivity between Li+, Na+, and K+ is weak (approximately 8% difference in barriers).
 
@@ -502,7 +502,7 @@ The following table compares the Genesis gyroid LLZO architecture against the ma
 |---|---|---|---|---|---|---|
 | **Electrolyte type** | Oxide (LLZO) | Oxide (proprietary) | Sulfide (argyrodite) | Sulfide | Sulfide + oxide | Oxynitride glass |
 | **Architecture** | Gyroid scaffold (Ia-3d) | Planar ceramic | Planar composite | Planar composite | Multilayer | Thin-film PVD |
-| **Dendrite suppression** | 7.57x (biharmonic) | ~2-3x (reported) | Variable | Variable | Not disclosed | >10x (thickness-limited) |
+| **Dendrite suppression** | 4.17-7.57x (biharmonic, depending on geometry and assumptions) | ~2-3x (reported) | Variable | Variable | Not disclosed | >10x (thickness-limited) |
 | **Monroe-Newman ratio** | 8.9x | ~2-4x (estimated) | <2x (soft sulfide) | <2x (soft sulfide) | Mixed | >10x (amorphous) |
 | **Ionic conductivity** | 0.112 mS/cm (corrected) | 0.3-1.0 mS/cm (claimed) | 2-5 mS/cm | 2-5 mS/cm | 10-25 mS/cm (sulfide) | 0.001-0.01 mS/cm |
 | **Operating pressure** | **< 0.5 MPa** | 3.4-12 MPa | 5-40 MPa | 5-75 MPa | 10-50 MPa | None (thin-film) |
@@ -573,7 +573,7 @@ All values are drawn from the canonical values file (single source of truth). Th
 | 2 - Sieve | Li+ barrier (0.7 nm) | 7.1 | kJ/mol | GROMACS PMF | Verified |
 | 2 - Sieve | K+ barrier (0.7 nm) | 7.7 | kJ/mol | GROMACS PMF | Verified |
 | 2 - Sieve | Na+ barrier (0.7 nm) | 7.4 | kJ/mol | Calibrated Born model | Verified (model) |
-| 2 - Sieve | Solvated selectivity | >10^6:1 | ratio | Steric exclusion | Verified (topological) |
+| 2 - Sieve | Solvated selectivity | >10^6:1 (bare-ion gas-phase; solvated selectivity will be lower) | ratio | Steric exclusion | Verified (topological) |
 | 3 - Tensegrity | Bulk modulus | 6.7 | GPa | Effective at 30.6% porosity | Verified |
 | 3 - Tensegrity | Porosity | 30.6 | % | Gyroid t=0.6 | Verified |
 | 3 - Tensegrity | Tortuosity | 1.18 +/- 0.04 | dimensionless | MCP geometric (120^3) | Verified |
@@ -650,6 +650,7 @@ The phase-field simulation uses the Allen-Cahn formulation on a 200 x 400 grid (
 | LLZO nu | 0.26 | Literature |
 
 **Honest limitations of phase-field results:**
+- Allen-Cahn phase-field is qualitative screening, not quantitative prediction; no grain boundary modeling
 - 2D simulation -- real dendrites grow in 3D
 - No electrochemical coupling (no Butler-Volmer kinetics in current implementation)
 - Explicit Euler time stepping -- possible numerical diffusion at large steps
@@ -1048,7 +1049,7 @@ The Genesis solid-state battery technology is protected by **96 patent claims** 
 
 | Family | Topic | Scope | Supported By |
 |---|---|---|---|
-| 1 | Phase-Field Dendrite Suppression | Allen-Cahn with gyroid constraint; gradient-stiffness scaffolds | 7.57x biharmonic verification |
+| 1 | Phase-Field Dendrite Suppression | Allen-Cahn with gyroid constraint; gradient-stiffness scaffolds (qualitative screening, not quantitative prediction; no grain boundary modeling) | 4.17-7.57x biharmonic verification |
 | 2 | P2D Electrochemistry | Newman framework for gyroid SSB; Monroe-Newman evaluation | 8.9x Monroe-Newman ratio |
 | 3 | Born Solvation Quantum Sieve | Sub-nm pore selectivity; calibrated Born model | GROMACS PMF (Li+ 7.1, K+ 7.7 kJ/mol) |
 | 4 | Gyroid Scaffold Design | TPMS geometry; Ia-3d symmetry match; porosity control | TPMS generator, tortuosity solver |
