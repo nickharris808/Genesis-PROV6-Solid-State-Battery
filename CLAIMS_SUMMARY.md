@@ -25,7 +25,9 @@ This document provides a non-confidential summary of claim families and their sc
 - Gradient-stiffness scaffolds that mechanically deflect dendrite tips
 - Phase-field order parameter evolution in triply periodic minimal surfaces
 
-**Supported by:** Biharmonic solver verification (7.57x suppression factor)
+**Supported by:** Biharmonic solver verification (7.57x mechanical deflection ratio)
+
+> **MODEL ARTIFACT CAVEAT:** The 7.57x figure is a MECHANICAL DEFLECTION RATIO from an Allen-Cahn (non-conserved order parameter) phase-field simulation, not a validated dendrite suppression factor. The Allen-Cahn formulation models interface motion via curvature-driven dynamics and does not conserve mass -- it measures how much the gyroid geometry deflects a perturbation front, not how effectively real lithium dendrites are suppressed in a physical cell. The biharmonic solver uses idealized boundary conditions and a single-mode perturbation. Real dendrite suppression in polycrystalline LLZO with grain boundary effects, electrochemical driving forces, and mass transport may differ significantly. This figure should be treated as a computational upper bound on mechanical deflection, not a validated dendrite suppression metric.
 
 ---
 
