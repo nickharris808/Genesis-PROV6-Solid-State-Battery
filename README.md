@@ -62,7 +62,7 @@ The Genesis value proposition is NOT that LLZO is a new material (it was discove
 | Property | Random Porous LLZO | Genesis Gyroid LLZO | Advantage |
 |---|---|---|---|
 | Tortuosity | 3-5 | 1.18 | 3-4x lower |
-| Conductivity | ~0.003 mS/cm | 0.112 mS/cm | ~160x higher |
+| Conductivity | ~0.003 mS/cm | 0.112 mS/cm | ~37x higher (corrected: 0.112 mS/cm / 0.003 mS/cm) |
 | Pore connectivity | 60-80% | 100% | No dead ends |
 | Stress concentration factor | K_t = 5-10 | K_t = 1.5-2.0 | 3-5x lower peak stress |
 | Dendrite suppression (Monroe-Newman) | Marginal | G_eff > 2*G_Li at 40% porosity | Criterion satisfied |
