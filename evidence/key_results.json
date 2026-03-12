@@ -34,7 +34,7 @@
         "factor": 2.0
       }
     },
-    "verification_status": "VERIFIED (biharmonic solver confirmed 2026-02-13)"
+    "verification_status": "MODEL_ARTIFACT -- Allen-Cahn uses non-conserved order parameter (wrong model class for dendrite growth; Cahn-Hilliard required). The 7.57x suppression factor is a model artifact, not a physical result."
   },
   "pillar_2_quantum_sieve": {
     "description": "Sub-nanometer gyroid pores exploit Born solvation energy for ion selectivity",

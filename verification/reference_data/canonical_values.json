@@ -8,6 +8,8 @@
   "dendrite_suppression": {
     "biharmonic_factor": 7.57,
     "biharmonic_factor_unit": "dimensionless (ratio)",
+    "biharmonic_factor_status": "MODEL_ARTIFACT_ALLEN_CAHN",
+    "biharmonic_factor_note": "Allen-Cahn uses non-conserved order parameter (wrong model class for dendrite growth, which requires conserved Cahn-Hilliard). The 7.57x value is a model artifact, not a physical suppression factor.",
     "worst_case_plasticity": 5.30,
     "tolerance_standard_glass_10um": 4.17,
     "tolerance_premium_glass_5um": 5.45,

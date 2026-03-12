@@ -37,6 +37,8 @@ The original 0.477 mS/cm value was an artifact of fitting the GROMACS MSD data w
 
 The corrected value uses an optimal MSD fitting window of [1524, 4571] ps, yielding R-squared = 0.999 and uncertainty of 3.7%. The corrected value (0.112 mS/cm) matches Thompson et al. (2017) grain-boundary-limited LLZO measurements (0.1 mS/cm).
 
+**Note:** FINAL_VALUATION_PITCH.md still references a retracted intermediate value of 0.364 mS/cm. This value is incorrect and should not be cited; the corrected value is 0.112 mS/cm.
+
 ### Force Field Caveat
 
 The Lennard-Jones force field parameters used in GROMACS were adapted from published Buckingham potentials (Adams & Rao 2012) by AI fitting. This force field has **not been independently validated against experimental LLZO conductivity measurements**. Systematic error from the Buckingham-to-LJ conversion is estimated at 20-50%.
@@ -53,7 +55,7 @@ The Allen-Cahn phase-field dendrite simulation is a continuum model that:
 - Does not capture discrete atomistic events at crack tips
 - Produces results that depend on mesh resolution and time step
 
-The 7.57x suppression factor is a **model prediction**, not a measurement.
+The 7.57x suppression factor is a **model artifact**, not a measurement. The Allen-Cahn equation is the wrong model class for dendrite growth -- it models non-conserved order parameters, while dendrite growth requires a conserved-field model (Cahn-Hilliard). A correct Cahn-Hilliard solver exists in the codebase but is unused for the headline suppression claim. The 7.57x value should not be cited as a physics prediction.
 
 ### GROMACS Molecular Dynamics
 
@@ -146,7 +148,7 @@ This computational work was developed with the assistance of Claude Opus 4.6 (An
 ### Tier 2: Reasonable Evidence (Needs Experimental Validation)
 - Ionic conductivity: 0.112 mS/cm (within LLZO range, corrected with R^2=0.999, but short MD trajectory)
 - Smart Fuse V3+ALD (computational validation only, no physical prototype)
-- Biharmonic suppression factor (model-dependent, 4.17-7.57x range depending on assumptions)
+- Biharmonic suppression factor (model-dependent, 4.17-7.57x range depending on assumptions; note: Allen-Cahn is wrong model class -- see Section 3)
 
 ### Tier 3: Weak Evidence (Significant Uncertainty)
 - Cycle life model (Weibull parameters are assumptions, not measurements; conductivity input is optimistic)
