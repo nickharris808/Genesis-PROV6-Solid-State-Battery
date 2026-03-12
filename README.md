@@ -97,13 +97,13 @@ See Section 6 for detailed acquisition scenarios.
 
 **Evidence:**
 - Monroe-Newman ratio: G_eff / G_Li = 8.9x (need > 2.0x) -- VALID analytical result
-- Biharmonic solver verified suppression factor: 7.57x (worst case with plasticity: 5.30x)
+- Biharmonic solver verified mechanical deflection ratio: 7.57x (worst case with plasticity: 5.30x)
 - With 10um glass warp tolerance: 4.17x
 - Source: `02_SOURCE_CODE/physics_engine_biharmonic.py`
 
 **Caveat:** The Allen-Cahn phase-field simulations are qualitative only (the model does not resolve grain boundaries or crack mechanics). The Monroe-Newman criterion (G_eff > 2*G_Li) is analytically valid. The 7.57x deflection suppression comes from biharmonic plate theory (published mechanics), not the phase-field model.
 
-**Status:** Monroe-Newman criterion VERIFIED. Biharmonic suppression factor (7.57x) is a published-mechanics result. Phase-field simulations are qualitative. See `SCIENCE_NOTES.md`.
+**Status:** Monroe-Newman criterion VERIFIED. Biharmonic mechanical deflection ratio (7.57x) is a published-mechanics result, not a validated dendrite suppression factor (Allen-Cahn is wrong model class; Cahn-Hilliard required). Phase-field simulations are qualitative and numerically stalled (see SCIENCE_NOTES.md).
 
 ### Pillar 2: Ion Transport (Conductivity)
 
@@ -116,7 +116,7 @@ See Section 6 for detailed acquisition scenarios.
 - Force field: AI-fitted LJ from Buckingham (Adams & Rao 2012), validated against 6 published studies
 - Source: `02_SOURCE_CODE/calculate_conductivity.py`, `02_SOURCE_CODE/conductivity_reconciliation.py`
 
-**Status:** VERIFIED with caveats (R^2 = 0.577, error = 185% of value, see Section 10)
+**Status:** VERIFIED with caveats. Corrected optimal window fit: R^2 = 0.999, 3.7% error (previous R^2 = 0.577 / 185% error superseded). However, 20 ns trajectory is short and AI-fitted force field is not independently validated.
 
 ### Pillar 3: Quantum Sieve (Ion Selectivity)
 
@@ -155,7 +155,7 @@ All metrics are in `CANONICAL_VALUES.json`. This is the SINGLE SOURCE OF TRUTH.
 ```
 Ionic conductivity:     0.112 mS/cm   (range: 0.1-0.6, uncertainty: 200%)
 Tortuosity:             1.18 +/- 0.04 (MCP geometric, 120^3 grid)
-Dendrite suppression:   7.57x         (biharmonic solver, clamped plate)
+Mech. deflection ratio: 7.57x         (biharmonic solver, clamped plate; not dendrite suppression)
                         4.17x         (with 10um glass tolerance)
                         5.30x         (worst case plasticity)
 Monroe-Newman ratio:    8.9x          (need > 2.0x)
@@ -394,9 +394,9 @@ Full analysis: `02_SOURCE_CODE/literature_benchmark.py`
 - Thermal safety (LLZO is non-flammable, this is a material property)
 
 ### Tier 2: Reasonable Evidence (Needs Validation)
-- Conductivity: 0.112 mS/cm (within LLZO range but R^2 = 0.577, error > value)
+- Conductivity: 0.112 mS/cm (within LLZO range, corrected R^2 = 0.999, 3.7% error; but 20 ns trajectory is short)
 - Smart Fuse V3+ALD (computational validation only, no physical prototype)
-- Biharmonic suppression factor (model-dependent, 4.17-7.57x range)
+- Biharmonic mechanical deflection ratio (model-dependent, 4.17-7.57x range; Allen-Cahn model class caveat)
 
 ### Tier 3: Weak Evidence (Significant Uncertainty)
 - Cycle life model (Weibull parameters are assumptions, not measurements)
@@ -405,7 +405,7 @@ Full analysis: `02_SOURCE_CODE/literature_benchmark.py`
 
 ### What a Skeptical Reviewer Would Find
 
-1. **Conductivity error bar exceeds the value** -- D_error/D = 185%. The value could be anywhere from 0 to 0.95 mS/cm. This is the single biggest weakness. Remedy: longer MD trajectories (>100 ns).
+1. **Conductivity uncertainty is modest but trajectory is short** -- After optimal window refitting, D_error/D = 3.7% with R^2 = 0.999. However, the 20 ns MD trajectory is short by modern standards (>100 ns recommended). The force field is AI-fitted and not independently validated.
 
 2. **No physical prototype exists** -- All evidence is computational. TRL 3. This is normal for early-stage deep tech but limits valuation confidence.
 

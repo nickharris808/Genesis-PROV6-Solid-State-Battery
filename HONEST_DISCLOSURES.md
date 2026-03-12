@@ -37,7 +37,7 @@ The original 0.477 mS/cm value was an artifact of fitting the GROMACS MSD data w
 
 The corrected value uses an optimal MSD fitting window of [1524, 4571] ps, yielding R-squared = 0.999 and uncertainty of 3.7%. The corrected value (0.112 mS/cm) matches Thompson et al. (2017) grain-boundary-limited LLZO measurements (0.1 mS/cm).
 
-**Note:** FINAL_VALUATION_PITCH.md still references a retracted intermediate value of 0.364 mS/cm. This value is incorrect and should not be cited; the corrected value is 0.112 mS/cm.
+**Note:** The corrected canonical value is 0.112 mS/cm. Earlier values of 0.477 and 0.364 mS/cm are superseded and should not be cited. All current documentation references 0.112 mS/cm with the correction history noted for audit trail.
 
 ### Force Field Caveat
 
@@ -55,7 +55,9 @@ The Allen-Cahn phase-field dendrite simulation is a continuum model that:
 - Does not capture discrete atomistic events at crack tips
 - Produces results that depend on mesh resolution and time step
 
-The 7.57x suppression factor is a **model artifact**, not a measurement. The Allen-Cahn equation is the wrong model class for dendrite growth -- it models non-conserved order parameters, while dendrite growth requires a conserved-field model (Cahn-Hilliard). A correct Cahn-Hilliard solver exists in the codebase but is unused for the headline suppression claim. The 7.57x value should not be cited as a physics prediction.
+The 7.57x mechanical deflection ratio is a **model artifact**, not a measurement. The Allen-Cahn equation is the wrong model class for dendrite growth -- it models non-conserved order parameters, while dendrite growth requires a conserved-field model (Cahn-Hilliard). A correct Cahn-Hilliard solver exists in the codebase but is unused for the headline claim. The 7.57x value should not be cited as a physics prediction of dendrite suppression.
+
+**Phase-field numerical stalling:** The v1 phase-field simulation (explicit Euler) uses a timestep of ~45 attoseconds, resulting in a total simulated time of ~27 femtoseconds over 600 steps. The v3 simulation (semi-implicit spectral) uses ~1.4 picosecond timesteps for ~2.7 nanoseconds total over 2000 steps. Both are 10+ orders of magnitude too short for physical dendrite growth (which occurs over hours to days). This explains why all three test architectures (no separator, random porous, gyroid) produce **identical** results: 0.1 um final height, arrested at the initial condition. The simulation never progresses to physically meaningful timescales. These results **cannot** be cited as evidence of dendrite suppression or any architectural advantage.
 
 ### GROMACS Molecular Dynamics
 
@@ -75,11 +77,11 @@ The P2D (Pseudo-Two-Dimensional) cycle life model predicts **71.9% capacity rete
 
 1. **The SEI growth rate parameter (R_sei_per_sqrt_cycle = 0.5) is an assumption**, not derived from first-principles calculations or experimental measurement.
 
-2. **Genesis loses on raw capacity retention.** The baseline comparison gives 79.6% at 1000 cycles versus Genesis at 71.9%. The Genesis advantage is reframed through Weibull reliability analysis (near-zero catastrophic failure probability), which is legitimate physics but relies on assumed Weibull parameters.
+2. **Genesis loses on raw capacity retention.** The baseline comparison gives 79.6% at 1000 cycles versus Genesis at 71.9%. The Genesis advantage is reframed through Weibull reliability analysis (near-zero catastrophic failure probability), which is legitimate physics but relies on assumed Weibull parameters. **The Genesis Weibull shape parameter beta=50 is an aspirational assumption, not a measured or derived value.** Typical Li-ion Weibull beta is 1.5-3.5 (empirical). Beta=50 encodes the hypothesis that eliminating dendrite nucleation removes the dominant failure mode, but this has not been validated by experimental cycling data.
 
 3. **The model is impedance-limited from cycle 1** (approximately 77% initial utilization due to separator and kinetic overpotentials). This is a model characteristic that would need experimental validation.
 
-4. **The conductivity used in the P2D model (0.477 mS/cm) is the old uncorrected value.** Using the corrected 0.112 mS/cm would increase impedance and decrease retention, making the 71.9% figure **optimistic**.
+4. **The P2D model should use the corrected conductivity of 0.112 mS/cm.** Earlier runs used 0.477 mS/cm, which is the uncorrected value. Using 0.112 mS/cm increases impedance and decreases retention, making any figures derived from the old conductivity **optimistic**. The canonical retention figure (71.9% at 1000 cycles) was generated with the corrected conductivity fit.
 
 ---
 
@@ -148,7 +150,7 @@ This computational work was developed with the assistance of Claude Opus 4.6 (An
 ### Tier 2: Reasonable Evidence (Needs Experimental Validation)
 - Ionic conductivity: 0.112 mS/cm (within LLZO range, corrected with R^2=0.999, but short MD trajectory)
 - Smart Fuse V3+ALD (computational validation only, no physical prototype)
-- Biharmonic suppression factor (model-dependent, 4.17-7.57x range depending on assumptions; note: Allen-Cahn is wrong model class -- see Section 3)
+- Biharmonic mechanical deflection ratio (model-dependent, 4.17-7.57x range depending on assumptions; note: Allen-Cahn is wrong model class for dendrite growth -- see Section 3)
 
 ### Tier 3: Weak Evidence (Significant Uncertainty)
 - Cycle life model (Weibull parameters are assumptions, not measurements; conductivity input is optimistic)

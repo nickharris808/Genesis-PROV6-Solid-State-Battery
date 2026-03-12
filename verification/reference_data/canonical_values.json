@@ -9,7 +9,7 @@
     "biharmonic_factor": 7.57,
     "biharmonic_factor_unit": "dimensionless (ratio)",
     "biharmonic_factor_status": "MODEL_ARTIFACT_ALLEN_CAHN",
-    "biharmonic_factor_note": "Allen-Cahn uses non-conserved order parameter (wrong model class for dendrite growth, which requires conserved Cahn-Hilliard). The 7.57x value is a model artifact, not a physical suppression factor.",
+    "biharmonic_factor_note": "MECHANICAL DEFLECTION RATIO, not dendrite suppression factor. Allen-Cahn uses non-conserved order parameter (wrong model class for dendrite growth, which requires conserved Cahn-Hilliard). The 7.57x value is a model artifact, not a physical suppression factor.",
     "worst_case_plasticity": 5.30,
     "tolerance_standard_glass_10um": 4.17,
     "tolerance_premium_glass_5um": 5.45,
@@ -46,7 +46,7 @@
     "K_barrier_kJ_mol": 7.7,
     "Na_barrier_kJ_mol": 7.4,
     "Na_method": "calibrated Born model (GROMACS PMF returned NaN)",
-    "mechanism": "steric exclusion of solvated species; bare-ion selectivity is weak (~8%)"
+    "mechanism": "steric exclusion of solvated species ONLY; bare-ion selectivity is NEGLIGIBLE (0.24 kBT, 0.6 kJ/mol differential, overwhelmed by thermal noise)"
   },
   "smart_fuse": {
     "version": "V3 + ALD coating",
@@ -68,7 +68,7 @@
     "retention_1000_cycles_pct": 71.9,
     "model": "P2D (Newman/DFN, Butler-Volmer kinetics)",
     "sei_rate_parameter": 0.5,
-    "caveat": "SEI growth rate is assumed, not derived from first principles. Uses legacy conductivity (0.477 mS/cm); corrected value would give lower retention."
+    "caveat": "SEI growth rate is assumed, not derived from first principles. Canonical conductivity is 0.112 mS/cm (corrected from legacy 0.477 mS/cm). Weibull beta=50 for Genesis is an aspirational assumption (typical Li-ion: 1.5-3.5)."
   },
   "thermal_safety": {
     "genesis_max_T_C": 689,

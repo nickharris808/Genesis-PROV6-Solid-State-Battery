@@ -66,10 +66,20 @@ Examples of correct model classes:
 - Qualitative comparison: a spatially varying stiffness field (Gyroid) creates different mechanical barriers than a uniform field
 - The Gyroid architecture has lower stress concentration factors (K_t = 1.8 vs 7.0 for random porous) -- this is a geometry result, independent of the dendrite model
 
+### Phase-Field Numerical Stalling
+
+Both phase-field implementations suffer from numerical stalling that prevents any meaningful dendrite growth:
+
+- **v1 (explicit Euler):** Timestep ~45 attoseconds, total simulated time ~27 femtoseconds over 600 steps
+- **v3 (semi-implicit spectral):** Timestep ~1.4 picoseconds, total simulated time ~2.7 nanoseconds over 2000 steps
+
+Physical dendrite growth occurs over hours to days (~10^4 seconds). Both simulations are 10-17 orders of magnitude too short. This is why all three architectures (no separator, random porous, gyroid) produce **identical** results: 0.1 um final height, never advancing beyond the initial perturbation. The simulation does not differentiate Genesis from controls.
+
 ### What Cannot Be Fixed Computationally
 
 - The Allen-Cahn model cannot be "patched" to capture grain boundary transport or crack-mediated penetration. A fundamentally different model class is required.
 - Quantitative suppression factors from these simulations should NOT be cited as physical predictions.
+- The numerical stalling issue requires either adaptive time-stepping with orders-of-magnitude larger timesteps, or a fundamentally different formulation that operates on physically relevant timescales.
 
 ### Files Modified
 
